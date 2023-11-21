@@ -17,25 +17,8 @@ jobs:
     environment: Automation test
 
     steps:
-    - name: 'Checking out repo code'
-      uses: actions/checkout@v3.5.2
-
-    - name: Set Node.js 16.x for GitHub Action
-      uses: actions/setup-node@v1
-      with:
-        node-version: 16.x
-
-    - name: 'Validate build'
-      run: |
-        npm install
-        npm run build
-        
-    - name: 'Run L0 tests'
-      run: |
-        npm run test
-
     - name: Login with creds
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         creds: ${{secrets.SP1}}
         enable-AzPSSession: true
@@ -59,7 +42,7 @@ jobs:
             }
 
     - name: Login with individual parameters
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         client-id: ${{ secrets.OIDC_SP2_CLIENT_ID }}
         tenant-id: ${{ secrets.OIDC_SP2_TENANT_ID }}
@@ -82,7 +65,7 @@ jobs:
             }
 
     - name: Login with explicit auth-type
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         creds: ${{secrets.SP1}}
         auth-type: SERVICE_PRINCIPAL
@@ -114,21 +97,8 @@ jobs:
     environment: Automation test
 
     steps:
-    - name: 'Checking out repo code'
-      uses: actions/checkout@v3.5.2
-
-    - name: Set Node.js 16.x for GitHub Action
-      uses: actions/setup-node@v1
-      with:
-        node-version: 16.x
-
-    - name: 'Validate build'
-      run: |
-        npm install
-        npm run build
-
     - name: Login with creds, disable ps session
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         creds: ${{secrets.SP1}}
         enable-AzPSSession: false
@@ -140,7 +110,7 @@ jobs:
         az vm list --output none
 
     - name: Login with creds, wrong boolean value
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         creds: ${{secrets.SP1}}
         enable-AzPSSession: notboolean
@@ -152,7 +122,7 @@ jobs:
         az vm list --output none
 
     - name: Login with creds, allow no subscription
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         creds: ${{secrets.SP1}}
         allow-no-subscriptions: true
@@ -177,7 +147,7 @@ jobs:
             }
 
     - name: Login with individual parameters, no subscription, allow no subscription
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         client-id: ${{ secrets.OIDC_SP2_CLIENT_ID }}
         tenant-id: ${{ secrets.OIDC_SP2_TENANT_ID }}
@@ -199,7 +169,7 @@ jobs:
             }
 
     - name: Login with creds, no subscription, allow no subscription
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         creds: '{"clientId":"${{ secrets.OIDC_SP2_CLIENT_ID }}","clientSecret":"${{ secrets.SP2_CLIENT_SECRET }}","tenantId":"${{ secrets.OIDC_SP2_TENANT_ID }}"}'
         allow-no-subscriptions: true
@@ -208,7 +178,6 @@ jobs:
     - name: Run Azure Cli
       run: |
         az account show --output none
-
     - name: Run Azure PowerShell
       uses: azure/powershell@v1.2.0
       with:
@@ -227,21 +196,8 @@ jobs:
     environment: Automation test
 
     steps:
-    - name: 'Checking out repo code'
-      uses: actions/checkout@v3.5.2
-
-    - name: Set Node.js 16.x for GitHub Action
-      uses: actions/setup-node@v1
-      with:
-        node-version: 16.x
-
-    - name: 'Validate build'
-      run: |
-        npm install
-        npm run build
-
     - name: Login with system-assigned managed identity, no subscription-id
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         auth-type: IDENTITY
         allow-no-subscriptions: true
@@ -262,7 +218,7 @@ jobs:
             }
 
     - name: Login with system-assigned managed identity, with subscription id
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         auth-type: IDENTITY
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTIONID }}
@@ -287,7 +243,7 @@ jobs:
             }
 
     - name: Login with tenant-level user-assigned managed identity with allow-no-subscriptions
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         client-id: ${{ secrets.UMI2_CLIENT_ID }}
         allow-no-subscriptions: true
@@ -309,7 +265,7 @@ jobs:
             }
 
     - name: Login with user-assigned managed identity, subscription-id
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         client-id: ${{ secrets.UMI1_CLIENT_ID }}
         subscription-id: ${{ secrets.UMI1_SUBSCRIPTION_ID }}

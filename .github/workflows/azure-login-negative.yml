@@ -14,23 +14,9 @@ jobs:
     environment: Automation test
 
     steps:
-    - name: 'Checking out repo code'
-      uses: actions/checkout@v3.5.2
-
-    - name: Set Node.js 16.x for GitHub Action
-      uses: actions/setup-node@v1
-      with:
-        node-version: 16.x
-
-    - name: 'Validate build'
-      run: |
-        npm install
-        npm run build
-        npm run test
-
     - name: Login with creds
       continue-on-error: true
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         creds: ${{secrets.SP1}}
         enable-AzPSSession: true
@@ -61,7 +47,7 @@ jobs:
 
     - name: Login with individual parameters
       id: login_2
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         client-id: ${{ secrets.OIDC_SP2_CLIENT_ID }}
         tenant-id: ${{ secrets.OIDC_SP2_TENANT_ID }}
@@ -97,22 +83,8 @@ jobs:
     environment: Automation test
 
     steps:
-
-    - name: 'Checking out repo code'
-      uses: actions/checkout@v3.5.2
-
-    - name: Set Node.js 16.x for GitHub Action
-      uses: actions/setup-node@v1
-      with:
-        node-version: 16.x
-
-    - name: 'Validate build'
-      run: |
-        npm install
-        npm run build
-
     - name: Login with individual parameters
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         client-id: ${{ secrets.OIDC_SP2_CLIENT_ID }}
         tenant-id: ${{ secrets.OIDC_SP2_TENANT_ID }}
@@ -161,23 +133,10 @@ jobs:
     environment: Automation test
 
     steps:
-    - name: 'Checking out repo code'
-      uses: actions/checkout@v3.5.2
-
-    - name: Set Node.js 16.x for GitHub Action
-      uses: actions/setup-node@v1
-      with:
-        node-version: 16.x
-
-    - name: 'Validate build'
-      run: |
-        npm install
-        npm run build
-
     - name: Login with creds, missing parameters in creds
       id: login_4
       continue-on-error: true
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         creds: ${{secrets.SP3_NO_Secret}}
         enable-AzPSSession: true
@@ -192,7 +151,7 @@ jobs:
     - name: Login with creds, wrong keys
       id: login_5
       continue-on-error: true
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         creds: ${{secrets.SP4_Wrong_Key}}
         enable-AzPSSession: true
@@ -207,7 +166,7 @@ jobs:
     - name: Login with creds, no creds or individual parameters
       id: login_6
       continue-on-error: true
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         enable-AzPSSession: true
 
@@ -221,7 +180,7 @@ jobs:
     - name: Login with individual parameters, only client-id, no tenant-id, subscription-id
       id: login_7
       continue-on-error: true
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         client-id: ${{ secrets.OIDC_SP2_CLIENT_ID }}
         allow-no-subscriptions: true
@@ -237,7 +196,7 @@ jobs:
     - name: Login with individual parameters, only tenant-id, subscription-id, no client-id
       id: login_8
       continue-on-error: true
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         tenant-id: ${{ secrets.OIDC_SP2_TENANT_ID }}
         subscription-id: ${{ secrets.OIDC_SP2_SUBSCRIPTION_ID }}
@@ -252,7 +211,7 @@ jobs:
             core.setFailed('Last action should fail but not. Please check it.')
 
     - name: Login with creds, disable ps session
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         creds: ${{secrets.SP1}}
         enable-AzPSSession: false
@@ -282,7 +241,7 @@ jobs:
             core.setFailed('Last action should fail but not. Please check it.')
 
     - name: Login with creds, wrong boolean value
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         creds: ${{secrets.SP1}}
         enable-AzPSSession: notboolean
@@ -314,7 +273,7 @@ jobs:
     - name: Login with individual parameters, with a wrong audience
       id: login_10
       continue-on-error: true
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         client-id: ${{ secrets.OIDC_SP2_CLIENT_ID }}
         tenant-id: ${{ secrets.OIDC_SP2_TENANT_ID }}
@@ -333,7 +292,7 @@ jobs:
     - name: Login with tenant-level account, without allow-no-subscriptions
       id: login_11
       continue-on-error: true
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         client-id: ${{ secrets.OIDC_SP2_CLIENT_ID }}
         tenant-id: ${{ secrets.OIDC_SP2_TENANT_ID }}
@@ -351,7 +310,7 @@ jobs:
     - name: Login with both creds and individual parameters
       id: login_12
       continue-on-error: true
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         creds: ${{secrets.SP1}}
         client-id: ${{ secrets.OIDC_SP2_CLIENT_ID }}
@@ -370,7 +329,7 @@ jobs:
     - name: Login by OIDC with all info in creds 
       id: login_13
       continue-on-error: true
-      uses: ./
+      uses: azure/login@1.4.6
       with:
         creds: ${{secrets.SP2}}
         allow-no-subscriptions: true
@@ -391,23 +350,10 @@ jobs:
     environment: Automation test
 
     steps:
-    - name: 'Checking out repo code'
-      uses: actions/checkout@v3.5.2
-
-    - name: Set Node.js 16.x for GitHub Action
-      uses: actions/setup-node@v1
-      with:
-        node-version: 16.x
-
-    - name: 'Validate build'
-      run: |
-        npm install
-        npm run build
-
     - name: Login with system-assigned managed identity without auth-type
       id: login_14
       continue-on-error: true
-      uses: ./
+      uses: azure/login@1.4.6
     
     - name: Check Last step failed
       if: steps.login_14.outcome == 'success'

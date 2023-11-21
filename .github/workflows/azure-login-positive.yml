@@ -18,7 +18,7 @@ jobs:
 
     steps:
     - name: Login with creds
-      uses: azure/login@1.4.6
+      uses: azure/login@v1.4.6
       with:
         creds: ${{secrets.SP1}}
         enable-AzPSSession: true
@@ -42,7 +42,7 @@ jobs:
             }
 
     - name: Login with individual parameters
-      uses: azure/login@1.4.6
+      uses: azure/login@v1.4.6
       with:
         client-id: ${{ secrets.OIDC_SP2_CLIENT_ID }}
         tenant-id: ${{ secrets.OIDC_SP2_TENANT_ID }}
@@ -65,7 +65,7 @@ jobs:
             }
 
     - name: Login with explicit auth-type
-      uses: azure/login@1.4.6
+      uses: azure/login@v1.4.6
       with:
         creds: ${{secrets.SP1}}
         auth-type: SERVICE_PRINCIPAL
@@ -98,7 +98,7 @@ jobs:
 
     steps:
     - name: Login with creds, disable ps session
-      uses: azure/login@1.4.6
+      uses: azure/login@v1.4.6
       with:
         creds: ${{secrets.SP1}}
         enable-AzPSSession: false
@@ -110,7 +110,7 @@ jobs:
         az vm list --output none
 
     - name: Login with creds, wrong boolean value
-      uses: azure/login@1.4.6
+      uses: azure/login@v1.4.6
       with:
         creds: ${{secrets.SP1}}
         enable-AzPSSession: notboolean
@@ -122,7 +122,7 @@ jobs:
         az vm list --output none
 
     - name: Login with creds, allow no subscription
-      uses: azure/login@1.4.6
+      uses: azure/login@v1.4.6
       with:
         creds: ${{secrets.SP1}}
         allow-no-subscriptions: true
@@ -147,7 +147,7 @@ jobs:
             }
 
     - name: Login with individual parameters, no subscription, allow no subscription
-      uses: azure/login@1.4.6
+      uses: azure/login@v1.4.6
       with:
         client-id: ${{ secrets.OIDC_SP2_CLIENT_ID }}
         tenant-id: ${{ secrets.OIDC_SP2_TENANT_ID }}
@@ -169,7 +169,7 @@ jobs:
             }
 
     - name: Login with creds, no subscription, allow no subscription
-      uses: azure/login@1.4.6
+      uses: azure/login@v1.4.6
       with:
         creds: '{"clientId":"${{ secrets.OIDC_SP2_CLIENT_ID }}","clientSecret":"${{ secrets.SP2_CLIENT_SECRET }}","tenantId":"${{ secrets.OIDC_SP2_TENANT_ID }}"}'
         allow-no-subscriptions: true
@@ -197,7 +197,7 @@ jobs:
 
     steps:
     - name: Login with system-assigned managed identity, no subscription-id
-      uses: azure/login@1.4.6
+      uses: azure/login@v1.4.6
       with:
         auth-type: IDENTITY
         allow-no-subscriptions: true
@@ -218,7 +218,7 @@ jobs:
             }
 
     - name: Login with system-assigned managed identity, with subscription id
-      uses: azure/login@1.4.6
+      uses: azure/login@v1.4.6
       with:
         auth-type: IDENTITY
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTIONID }}
@@ -243,7 +243,7 @@ jobs:
             }
 
     - name: Login with tenant-level user-assigned managed identity with allow-no-subscriptions
-      uses: azure/login@1.4.6
+      uses: azure/login@v1.4.6
       with:
         client-id: ${{ secrets.UMI2_CLIENT_ID }}
         allow-no-subscriptions: true
@@ -265,7 +265,7 @@ jobs:
             }
 
     - name: Login with user-assigned managed identity, subscription-id
-      uses: azure/login@1.4.6
+      uses: azure/login@v1.4.6
       with:
         client-id: ${{ secrets.UMI1_CLIENT_ID }}
         subscription-id: ${{ secrets.UMI1_SUBSCRIPTION_ID }}

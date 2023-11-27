@@ -125,7 +125,7 @@ export class AzureCliLogin {
         if (this.loginConfig.allowNoSubscriptionsLogin) {
             args.push("--allow-no-subscriptions");
         }
-        await this.executeAzCliCommand(args, true, this.loginOptions);
+        await this.executeAzCliCommand(args, false, this.loginOptions);
         if (this.loginConfig.subscriptionId) {
             await this.setSubscription();
         }
@@ -134,7 +134,7 @@ export class AzureCliLogin {
 
     async setSubscription() {
         let args = ["account", "set", "--subscription", this.loginConfig.subscriptionId];
-        await this.executeAzCliCommand(args, true, this.loginOptions);
+        await this.executeAzCliCommand(args, false, this.loginOptions);
         core.info("Subscription is set successfully.");
     }
 

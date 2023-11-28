@@ -132,6 +132,7 @@ export class AzureCliLogin {
         if (this.loginConfig.allowNoSubscriptionsLogin) {
             args.push("--allow-no-subscriptions");
         }
+        args.push("--debug")
         await this.executeAzCliCommand(args, true, this.loginOptions);
         if (this.loginConfig.subscriptionId) {
             await this.setSubscription();
